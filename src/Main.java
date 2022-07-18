@@ -22,7 +22,7 @@ public class Main {
 		users.stream().filter(user -> user.getName().startsWith("鈴木")).forEach(u -> System.out.println(u.getName()));
 		
 		System.out.println("【生年月日が2000年1月1日以降の人のみを表示する");
-		users.stream().filter(u -> u.getBirthDate().getYear() > 2000)
+		users.stream().filter(u -> u.getBirthDate().getYear() >= 2000)
 				.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
 
 		System.out.println("【生年月日の昇順に並び替えて表示する】");
