@@ -8,7 +8,6 @@ public class User {
 	private final LocalDate birthDate;
 
 	public User(String name, LocalDate birthDate) {
-		super();
 		this.name = name;
 		this.birthDate = birthDate;
 	}
