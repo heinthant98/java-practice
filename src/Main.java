@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -11,7 +12,7 @@ public class Main {
 				new User("鈴木花子", LocalDate.of(2002, 4, 4)));
 		
 		System.out.println("【すべてのユーザーを表示する】");
-		users.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(),u.getBirthDate())));
+		users.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
 	}
 
 }
