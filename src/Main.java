@@ -16,7 +16,7 @@ public class Main {
 		users.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
 	
 		System.out.println("【すべてのユーザーを表示する。ただし生年月日はyyyy/MM/dd(E)形式で出力する】");
-		users.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), japanFormat(u.getBirthDate()))));
+		users.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), toJapaneseFormat(u.getBirthDate()))));
 		
 		System.out.println("【名前が鈴木で始まる人のみを表示する】");
 		users.stream().filter(user ->user.getName().startsWith("鈴木"))
