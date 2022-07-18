@@ -1,10 +1,7 @@
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 public class Main {
 
@@ -20,7 +17,7 @@ public class Main {
 
 		System.out.println("【すべてのユーザーを表示する。ただし生年月日はyyyy/MM/dd(E)形式で出力する】");
 		users.forEach(
-				u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), japanFormat(u.getBirthDate()))));
+				u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), toJapaneseFormat(u.getBirthDate()))));
 
 		System.out.println("【名前が鈴木で始まる人のみを表示する】");
 		users.stream().filter(user -> user.getName().startsWith("鈴木")).forEach(u -> System.out.println(u.getName()));
@@ -37,10 +34,10 @@ public class Main {
 		users.stream().sorted(Comparator.comparing(User::getBirthDate).reversed())
 				.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
 
-	}
+}
 
-	private static String japanFormat(LocalDate localDate) {
-		return localDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)").localizedBy(Locale.JAPAN));
+	private static String toJapaneseFormat(LocalDate localDate) {
+		return localDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)"));
 	}
 
 }
