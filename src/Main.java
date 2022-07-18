@@ -11,6 +11,7 @@ public class Main {
 				new User("鈴木太郎", LocalDate.of(1991, 2, 2)), 
 				new User("山田一郎", LocalDate.of(2003, 3, 3)),
 				new User("鈴木花子", LocalDate.of(2002, 4, 4)));
+		LocalDate checkYear = LocalDate.of(2000, 1, 1);
 
 		System.out.println("【すべてのユーザーを表示する】");
 		users.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
@@ -22,7 +23,7 @@ public class Main {
 		users.stream().filter(user -> user.getName().startsWith("鈴木")).forEach(u -> System.out.println(u.getName()));
 		
 		System.out.println("【生年月日が2000年1月1日以降の人のみを表示する");
-		users.stream().filter(u -> u.getBirthDate().getYear() >= 2000)
+		users.stream().filter(u -> u.getBirthDate().isAfter(checkYear))
 				.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
 
 		System.out.println("【生年月日の昇順に並び替えて表示する】");
