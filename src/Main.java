@@ -23,8 +23,8 @@ public class Main {
 						.forEach(u -> System.out.println(u.getName()));
 	}
 	
-	private static String japanFormat(LocalDate localDate) {
-		return localDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)").localizedBy(Locale.JAPAN));
+	private static String toJapaneseFormat(LocalDate localDate) {
+		return localDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)"));
 	}
 
 }
