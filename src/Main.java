@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -47,7 +48,6 @@ public class Main {
 		users.stream()
 			.filter(user -> getAge(user.getBirthDate()) < 20)
 			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), getAge(u.getBirthDate()))));
-
 }
 
 	private static String toJapaneseFormat(LocalDate localDate) {
@@ -55,7 +55,7 @@ public class Main {
 	}
 	
 	private static int getAge(LocalDate dateOfBirth) {
-		return LocalDate.now().getYear() - dateOfBirth.getYear();
+		return Period.between(dateOfBirth, LocalDate.of(2022, 7, 1)).getYears();
 	}
 
 }
