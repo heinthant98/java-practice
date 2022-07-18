@@ -1,6 +1,7 @@
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class Main {
 
@@ -13,6 +14,17 @@ public class Main {
 		
 		System.out.println("【すべてのユーザーを表示する】");
 		users.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
+	
+		System.out.println("【すべてのユーザーを表示する。ただし生年月日はyyyy/MM/dd(E)形式で出力する】");
+		users.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), toJapaneseFormat(u.getBirthDate()))));
+		
+		System.out.println("【名前が鈴木で始まる人のみを表示する】");
+		users.stream().filter(user ->user.getName().startsWith("鈴木"))
+						.forEach(u -> System.out.println(u.getName()));
+	}
+	
+	private static String toJapaneseFormat(LocalDate localDate) {
+		return localDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)"));
 	}
 
 }
