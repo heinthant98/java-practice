@@ -55,7 +55,7 @@ public class Main {
 	}
 	
 	private static int calculateAge(LocalDate dateOfBirth, LocalDate currentTime) {
-		if(currentTime.isAfter(dateOfBirth)) {
+		if(currentTime.isAfter(dateOfBirth) || currentTime.isEqual(dateOfBirth)) {
 			return Period.between(dateOfBirth, currentTime).getYears();
 		}else {
 			throw new DateTimeException("Birth Date cannot greater then current Date");
