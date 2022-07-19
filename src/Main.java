@@ -1,4 +1,6 @@
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -20,7 +22,7 @@ public class Main {
 
 		System.out.println("【名前が鈴木で始まる人のみを表示する】");
 		users.stream().filter(user -> user.getName().startsWith("鈴木")).forEach(u -> System.out.println(u.getName()));
-		
+
 		System.out.println("【生年月日が2000年1月1日以降の人のみを表示する");
 		users.stream().filter(u -> u.getBirthDate().isAfter(LocalDate.of(1999, 12, 31)))
 				.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
@@ -32,12 +34,32 @@ public class Main {
 		System.out.println("【生年月日の降順に並び替えて表示する】");
 		users.stream().sorted(Comparator.comparing(User::getBirthDate).reversed())
 				.forEach(u -> System.out.println("名前: %s, 生年月日: %s".formatted(u.getName(), u.getBirthDate())));
+		
+		System.out.println("【2022年7月1日時点の各ユーザーの年齢を表示する】");
+		users.stream()
+			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), calculateAge(u.getBirthDate(), LocalDate.of(2022, 7, 1)))));
 
+		System.out.println("【2022年7月1日時点で20歳以下のユーザーを表示する】");
+		users.stream()
+			.filter(user -> calculateAge(user.getBirthDate(), LocalDate.of(2022, 7, 1)) <= 20)
+			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), calculateAge(u.getBirthDate(), LocalDate.of(2022, 7, 1)))));
 
-}
+		System.out.println("【2022年7月1日時点で20歳未満のユーザーを表示する】");
+		users.stream()
+			.filter(user -> calculateAge(user.getBirthDate(), LocalDate.of(2022, 7, 1)) < 20)
+			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), calculateAge(u.getBirthDate(), LocalDate.of(2022, 7, 1)))));
+	}
 
 	private static String toJapaneseFormat(LocalDate localDate) {
 		return localDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)"));
+	}
+	
+	private static int calculateAge(LocalDate dateOfBirth, LocalDate currentTime) {
+		if (currentTime.isAfter(dateOfBirth) || currentTime.isEqual(dateOfBirth)) {
+			return Period.between(dateOfBirth, currentTime).getYears();
+		} else {
+			throw new DateTimeException("Birth Date cannot greater then current Date");
+		}
 	}
 
 }
