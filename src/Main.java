@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -48,14 +49,18 @@ public class Main {
 		users.stream()
 			.filter(user -> calculateAge(user.getBirthDate(), LocalDate.of(2022, 7, 1)) < 20)
 			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), calculateAge(u.getBirthDate(), LocalDate.of(2022, 7, 1)))));
-}
+	}
 
 	private static String toJapaneseFormat(LocalDate localDate) {
 		return localDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)"));
 	}
 	
 	private static int calculateAge(LocalDate dateOfBirth, LocalDate currentTime) {
-		return Period.between(dateOfBirth, currentTime).getYears();
+		if(currentTime.getYear() > dateOfBirth.getYear()) {
+			return Period.between(dateOfBirth, currentTime).getYears();
+		}else {
+			throw new DateTimeException("Birth Date cannot greater then current Date");
+		}
 	}
 
 }
