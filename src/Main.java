@@ -37,25 +37,25 @@ public class Main {
 		
 		System.out.println("【2022年7月1日時点の各ユーザーの年齢を表示する】");
 		users.stream()
-			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), getAge(u.getBirthDate()))));
+			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), calculateAge(LocalDate.of(2022, 7, 1), u.getBirthDate()))));
 
 		System.out.println("【2022年7月1日時点で20歳以下のユーザーを表示する】");
 		users.stream()
-			.filter(user -> getAge(user.getBirthDate()) <= 20)
-			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), getAge(u.getBirthDate()))));
+			.filter(user -> calculateAge(LocalDate.of(2022, 7, 1), user.getBirthDate()) <= 20)
+			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), calculateAge(LocalDate.of(2022, 7, 1), u.getBirthDate()))));
 
 		System.out.println("【2022年7月1日時点で20歳未満のユーザーを表示する】");
 		users.stream()
-			.filter(user -> getAge(user.getBirthDate()) < 20)
-			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), getAge(u.getBirthDate()))));
+			.filter(user -> calculateAge(LocalDate.of(2022, 7, 1), user.getBirthDate()) < 20)
+			.forEach(u -> System.out.println("名前: %s,年齢: %s歳".formatted(u.getName(), calculateAge(LocalDate.of(2022, 7, 1), u.getBirthDate()))));
 }
 
 	private static String toJapaneseFormat(LocalDate localDate) {
 		return localDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)"));
 	}
 	
-	private static int getAge(LocalDate dateOfBirth) {
-		return Period.between(dateOfBirth, LocalDate.of(2022, 7, 1)).getYears();
+	private static int calculateAge(LocalDate currentTime, LocalDate dateOfBirth) {
+		return Period.between(dateOfBirth, currentTime).getYears();
 	}
 
 }
